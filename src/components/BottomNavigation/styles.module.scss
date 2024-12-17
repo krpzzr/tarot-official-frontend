@@ -1,0 +1,75 @@
+.wrapper {
+  position: fixed;
+  width: 100%;
+  bottom: -68px;
+  background: #fff;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+
+  ul {
+    margin: 0;
+    padding: 10px 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      top: -57px;
+
+      &:active {
+        transform: translateY(2px);
+      }
+
+      img {
+        width: 52px;
+        height: auto;
+        transition: filter 0.2s, transform 0.2s;
+      }
+
+      &.ball img {
+        width: 40px;
+      }
+
+      &.reward img {
+        width: 45px;
+      }
+
+      &.active img {
+        animation: img-shadow-animation 2s ease-in-out infinite alternate;
+        filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.4));
+      }
+
+      &.active::before {
+        content: "";
+        position: absolute;
+        width: 80%;
+        background: #32135e;
+        bottom: 8px;
+        height: 37px;
+        border-bottom-right-radius: 66px;
+        border-bottom-left-radius: 66px;
+      }
+    }
+  }
+
+  // Анимация тени для img
+  @keyframes img-shadow-animation {
+    0% {
+      transform: translateY(-2px);
+      filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.2));
+    }
+    100% {
+      transform: translateY(2px);
+      filter: drop-shadow(0px 8px 14px rgba(0, 0, 0, 0.4));
+    }
+  }
+}

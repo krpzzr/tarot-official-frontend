@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "allowJs": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,      
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "baseUrl": "./src",
+    "paths": {
+      "components/*": ["components/*"],
+      "locales/*": ["locales/*"],
+      "utils/*": ["utils/*"],
+      "styles/*": ["styles/*"],
+      "types/*": ["types/*"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.js",
+    "**/*.js"
+  ]
+}
