@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styles from './styles.module.scss';
 
@@ -8,6 +8,11 @@ interface IProps {
 }
 
 const BottomNavigation: React.FC<IProps> = ({ setCurrentView, screen }) => {
+  useEffect(() => {
+    if (window.Telegram?.WebApp?.HapticFeedback) {
+      window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+    }
+  }, [screen]);
   return (
     <nav className={styles.wrapper}>
       <ul>
