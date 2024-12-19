@@ -5,7 +5,7 @@ import Header from 'components/Header';
 import TarotCard from 'components/Tarot';
 import YesNoGame from 'components/MysteryBall';
 import BottomNavigation from 'components/BottomNavigation';
-import { getAPIUrl } from 'utils/urlUtils';
+import { convertHashToQueryParam, getAPIUrl } from 'utils/urlUtils';
 
 interface EventData {
   eventType: string;
@@ -99,8 +99,9 @@ const App = () => {
   };
 
   const askQuestion = async () => {
-    console.log('askQuestion', getAPIUrl());
-    const response = await axios.post(`${getAPIUrl()}/ask`);
+    const queryParams = convertHashToQueryParam(window.location.search);
+    const queryString = new URLSearchParams(queryParams).toString();
+    const response = await axios.post(`${getAPIUrl()}/detailed-layout?${queryString}`);
   
     const data = await response.data;
     console.log('Answer from OpenAI:', data.answer);
