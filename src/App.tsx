@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import Header from 'components/Header';
 import MainPage from 'components/MainPage';
 import TarotList from 'components/TarotList';
 import YesNoGame from 'components/MysteryBall';
-import BottomNavigation from 'components/BottomNavigation';
-import { convertHashToQueryParam, getAPIUrl } from 'utils/urlUtils';
+import BonusBalance from 'components/Modal/ui/BonusBalance';
+import Modal from 'components/Modal';
+import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
+import { convertHashToQueryParam } from 'utils/urlUtils';
+import { fetchUserData } from 'toolkit/actions/userActions';
 
 import styles from './styles.module.scss';
 
@@ -16,23 +18,20 @@ interface EventData {
   payload: any;
 }
 
-const formatText = (text: string) => {
-  // Заменяем \n на <br /> для переноса строк
-  let formattedText = text.replace(/\n/g, '<br />');
+// const formatText = (text: string) => {
+//   // Заменяем \n на <br /> для переноса строк
+//   let formattedText = text.replace(/\n/g, '<br />');
   
-  // Заменяем **текст** на <strong>текст</strong> для жирного текста
-  formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+//   // Заменяем **текст** на <strong>текст</strong> для жирного текста
+//   formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-  return formattedText;
-};
+//   return formattedText;
+// };
 
 const App = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-
-  // const [currentView, setCurrentView] = useState<string>("magic-ball");
-  // const [isPaymentSuccess, setPayment] = useState<boolean>(false);
-  // const [answer, setAnswer] = useState<string>('');
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
@@ -73,6 +72,7 @@ const App = () => {
       console.error("Error calling TelegramGameProxy:", error);
     }
 
+    dispatch(fetchUserData(convertHashToQueryParam(window.location.search)));
   }, []);
 
   useEffect(() => {
@@ -128,7 +128,9 @@ const App = () => {
         <Route path="/magic-ball" element={<YesNoGame />} />
         <Route path="/rewards" element={<div>Rewards</div>} />
       </Routes>
-      {/* <BottomNavigation /> */}
+      <Modal>
+        <BonusBalance />
+      </Modal>
     </div>
   );
 };

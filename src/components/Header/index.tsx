@@ -6,7 +6,7 @@ const Header: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.balance}>
-        500
+        500 <img src="./images/balance_icon.png" alt="" />
       </div>
       <div>
         <button>Пополнить Баланс</button>

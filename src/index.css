@@ -9,6 +9,12 @@ body {
   background-repeat: no-repeat;
   min-height: 100vh;
   color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none; /* Отключение выделения текста */
+  -webkit-user-select: none; /* Для iOS */
+  -ms-user-select: none; /* Для IE */
+  touch-action: manipulation; /* Отключение "долгого нажатия" */
+  overscroll-behavior: none;
 }
 
 code {
@@ -20,7 +26,13 @@ code {
   overflow: hidden;
 }
 
-h1 {
+h1 { 
   text-transform: uppercase;
   font-size: 20px;
+}
+
+img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
