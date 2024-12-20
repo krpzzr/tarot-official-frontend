@@ -1,13 +1,15 @@
 import React from 'react';
 
+import styles from './styles.module.scss';
+
 const Header: React.FC = () => {
   return (
-    <div>
-      <div>
-        Привет, Антонина!
+    <div className={styles.wrapper}>
+      <div className={styles.balance}>
+        500
       </div>
       <div>
-        Ваш баланс: 500
+        <button>Пополнить Баланс</button>
       </div>
     </div>
   )

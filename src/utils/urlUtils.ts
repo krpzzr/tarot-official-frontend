@@ -14,8 +14,10 @@ function convertHashToQueryParam(currentUrl: string): string {
     console.log('currentUrl', currentUrl);
     const newUrl = currentUrl.split('#')[0] + (currentUrl.length ? '&' : '?') + cleanHash;
 
-    return newUrl;
+    return new URLSearchParams(newUrl).toString();
   }
+
+  
   // Если хэш не найден, возвращаем исходный URL
   return currentUrl;
 }

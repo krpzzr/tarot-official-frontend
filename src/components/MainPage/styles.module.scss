@@ -1,0 +1,29 @@
+.wrapper {
+  .list {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+
+    li {
+      background: #fff;
+      margin-bottom: 20px;
+      padding: 20px;
+      color: #000;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      font-size: 23px;
+      text-transform: uppercase;
+      font-weight: bold;
+
+      img {
+        width: 70px;
+        height: auto;
+      }
+
+      span {
+        padding-left: 20px;
+      }
+    }
+  }
+}
