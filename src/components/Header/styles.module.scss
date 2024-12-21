@@ -6,7 +6,7 @@
   .balance {
     font-size: 35px;
     font-weight: bold;
-    color: #ffdc00;
+    color: #9855cf;
     padding-bottom: 10px;
     display: flex ;
     justify-content: center;
@@ -16,6 +16,14 @@
       padding-left: 5px;
       width: 28px;
       height: auto;
+    }
+
+    span {
+      background: #fff;
+      border-radius: 10px;
+      padding: 5px;
+      display: flex;
+      align-items: center;
     }
   }
 

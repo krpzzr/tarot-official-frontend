@@ -1,0 +1,97 @@
+.wrapper {
+  padding: 20px;
+  padding-top: 0;
+
+  .donateList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    li {
+      background: #f8f8f8;
+      font-size: 20px;
+      color: #9855cf;
+      font-weight: bold;
+      padding: 10px;
+      margin-right: 5px;
+      margin-left: 5px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      width: 73px;
+      text-align: center;
+      position: relative;
+      border: 4px solid #ffffff;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.popular {
+        border: 4px solid #ffdc00;
+
+        .popularText {
+          position: absolute;
+          left: 0;
+          right: 0;
+          margin: auto;
+          text-align: center;
+          font-size: 12px;
+          background: #ffdc00;
+          width: fit-content;
+          border-radius: 5px;
+          padding-left: 5px;
+          padding-right: 5px;
+          bottom: -9px;
+        }
+      }
+
+      .balanceAmount {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid;
+        padding-bottom: 5px;
+
+        img {
+          width: 20px;
+          height: auto;
+          padding-left: 4px;
+        }
+      }
+
+      .balancePrice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+
+        img {
+          width: 20px;
+          height: auto;
+          padding-left: 4px;
+        }
+      }
+
+      .balanceDiscount {
+        color: #fff;
+        font-size: 10px;
+        font-weight: 200;
+
+        span {
+          background: green;
+          padding: 5px;
+          position: absolute;
+          top: -12px;
+          left: 0;
+          border-radius: 10px;
+          right: 0;
+          margin: auto;
+          width: fit-content;
+        }
+      }
+    }
+  }
+}

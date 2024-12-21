@@ -7,6 +7,7 @@ import TarotList from 'components/TarotList';
 import YesNoGame from 'components/MysteryBall';
 import BonusBalance from 'components/Modal/ui/BonusBalance';
 import Modal from 'components/Modal';
+import Payments from 'components/Payments';
 import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
 import { convertHashToQueryParam } from 'utils/urlUtils';
 import { fetchUserData } from 'toolkit/actions/userActions';
@@ -89,36 +90,6 @@ const App = () => {
     }
   }, [location, navigate]);
 
-  // const handleTransactionRequest = async () => {
-  //   if (!window.Telegram.WebApp.initDataUnsafe.user) return;
-  //   const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-
-  //   try {
-  //     const response = await fetch(`${getAPIUrl()}/create-invoice`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ user_id: userId }),
-  //     });
-  
-  //     const data = await response.json();
-  //     if (data.success) {
-  //       window.Telegram.WebApp.openInvoice(data.invoiceLink, (status) => {
-  //         if (status === "paid") {
-  //           setPayment(true);
-  //           alert('Счёт успешно создан. Проверьте ваше приложение Telegram.');
-  //         }
-  //       })
-  //     } else {
-  //       alert('Ошибка создания счёта: ' + data.message);
-  //     }
-  //   } catch (error) {
-  //     console.error('Ошибка запроса:', error);
-  //     alert('Не удалось создать счёт. Попробуйте позже.');
-  //   }
-  // };
-
   return (
     <div className={styles.wrapper}>
       <Header />
@@ -127,6 +98,7 @@ const App = () => {
         <Route path="/tarot" element={<TarotList />} />
         <Route path="/magic-ball" element={<YesNoGame />} />
         <Route path="/rewards" element={<div>Rewards</div>} />
+        <Route path="/payments" element={<Payments />} />
       </Routes>
       <Modal>
         <BonusBalance />
