@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 
 import styles from './styles.module.scss';
 
 const MainPage: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigateWithHash();
 
   useEffect(() => {
     document.body.classList.add('disabled-scroll');

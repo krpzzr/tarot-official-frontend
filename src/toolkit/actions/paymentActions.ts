@@ -2,10 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { convertHashToQueryParam, getAPIUrl } from 'utils/urlUtils';
+import { fetchUserData } from './userActions';
 
 interface CreateInvoiceParams {
-  amount: number;
   type: string;
+  amount: number;
+  price: number;
 }
 
 // Асинхронный thunk для создания счёта
@@ -13,12 +15,13 @@ export const createInvoice = createAsyncThunk<
   void,
   CreateInvoiceParams,
   { rejectValue: string }
->('payment/createInvoice', async ({ amount, type }, { rejectWithValue }) => {
+>('payment/createInvoice', async ({ amount, type, price }, { rejectWithValue, dispatch }) => {
   try {
     const queryParams = convertHashToQueryParam(window.location.search);
     const response = await axios.post(`${getAPIUrl()}/create-invoice?${queryParams}`, {
-      amount,
       type,
+      amount,
+      price,
     });
 
     const data = response.data;
@@ -26,7 +29,7 @@ export const createInvoice = createAsyncThunk<
     if (data.success) {
       window.Telegram.WebApp.openInvoice(data.invoiceLink, (status) => {
         if (status === 'paid') {
-          alert('Счёт успешно создан. Проверьте ваше приложение Telegram.');
+          dispatch(fetchUserData());
         }
       });
     } else {

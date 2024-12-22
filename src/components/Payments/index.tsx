@@ -1,7 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import { useAppDispatch } from 'toolkit/hooks';
+import { useNavigateWithHash } from 'utils/useNavigateWithHash';
+import { createInvoice } from 'toolkit/actions/paymentActions';
 
 import styles from './styles.module.scss';
 
@@ -34,18 +35,27 @@ const balancePayment = [
 ];
 
 const Payments: React.FC = () => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigateWithHash();
 
   const handleRedirect = (path: string) => {
     navigate(path);
   };
 
+  const handleCreateTransaction = (type: string, amount: number, price: number) => {
+    dispatch(createInvoice({ type, amount, price }))
+  }
+
   return (
     <div className={styles.wrapper}>
       <div>
         <ul className={styles.donateList}>
-          {balancePayment.map(({ amount, price, text }) => (
-            <li className={price === 500 ? styles.popular : ''}>
+          {balancePayment.map(({ amount, price, text }, index) => (
+            <li
+              className={price === 500 ? styles.popular : ''}
+              key={index}
+              onClick={() => handleCreateTransaction('balance', amount, price)}
+            >
               <div className={styles.balanceAmount}>
                 {amount} <img src="./images/balance_icon.png" alt="" />
               </div>

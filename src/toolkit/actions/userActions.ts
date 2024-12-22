@@ -13,11 +13,12 @@ interface UserData {
 
 export const fetchUserData = createAsyncThunk<
   UserData,
-  string,
+  undefined,
   { dispatch: any }
 >(
   "user/fetchUserData",
-  async (queryParams: string, { dispatch }) => {
+  async (_, { dispatch }) => {
+    const queryParams = localStorage.getItem('tg_query_param') || '';
     const response = await axios.get(`${getAPIUrl()}/user?${queryParams}`);
 
     // Проверяем условие на passive_income и вызываем openModal
@@ -30,11 +31,12 @@ export const fetchUserData = createAsyncThunk<
 
 export const fetchUserBonus = createAsyncThunk<
   UserData,
-  string,
+  undefined,
   { dispatch: any }
 >(
   "user/fetchUserBonus",
-  async (queryParams: string, { dispatch }) => {
+  async (_, { dispatch }) => {
+    const queryParams = localStorage.getItem('tg_query_param') || '';
     const response = await axios.get(`${getAPIUrl()}/claim-bonus?${queryParams}`);
 
     dispatch(closeModal());

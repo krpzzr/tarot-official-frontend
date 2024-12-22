@@ -41,7 +41,7 @@ const BonusBalance: React.FC = () => {
   const dispatch = useAppDispatch();
   
   const handleClick = () => {
-    dispatch(fetchUserBonus(convertHashToQueryParam(window.location.hash)));
+    dispatch(fetchUserBonus());
   };
 
   return (

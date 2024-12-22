@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, To } from 'react-router-dom';
 
 import Header from 'components/Header';
 import MainPage from 'components/MainPage';
@@ -10,6 +10,7 @@ import Modal from 'components/Modal';
 import Payments from 'components/Payments';
 import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
 import { convertHashToQueryParam } from 'utils/urlUtils';
+import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 import { fetchUserData } from 'toolkit/actions/userActions';
 
 import styles from './styles.module.scss';
@@ -32,7 +33,7 @@ interface EventData {
 const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useNavigateWithHash();
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
@@ -72,8 +73,14 @@ const App = () => {
     } catch (error) {
       console.error("Error calling TelegramGameProxy:", error);
     }
+  }, []);
 
-    dispatch(fetchUserData(convertHashToQueryParam(window.location.search)));
+  useEffect(() => {
+    const queryParam = convertHashToQueryParam(window.location.search);
+
+    localStorage.setItem('tg_query_param', queryParam);
+
+    dispatch(fetchUserData());
   }, []);
 
   useEffect(() => {
@@ -82,14 +89,21 @@ const App = () => {
       if (location.pathname !== '/') {
         // Показываем кнопку "Назад", если не на главной странице
         window.Telegram.WebApp.BackButton.show();
-        window.Telegram.WebApp.BackButton.onClick(() => navigate(-1)); // Возврат на предыдущую страницу
+
+        // Добавляем обработчик для возврата назад
+        const handleBackClick = () => navigate(-1); // Переход на предыдущую страницу
+        window.Telegram.WebApp.BackButton.onClick(handleBackClick);
+
+        // Удаляем обработчик при размонтировании
+        return () => {
+          window.Telegram.WebApp.BackButton.offClick(handleBackClick);
+        };
       } else {
         // Скрываем кнопку "Назад" на главной странице
         window.Telegram.WebApp.BackButton.hide();
       }
     }
-  }, [location, navigate]);
-
+  }, [location.pathname, navigate]);
   return (
     <div className={styles.wrapper}>
       <Header />

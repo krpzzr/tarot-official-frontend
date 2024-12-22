@@ -1,11 +1,14 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useNavigateWithHash } from 'utils/useNavigateWithHash';
+import { useAppSelector } from 'toolkit/hooks';
 
 import styles from './styles.module.scss';
 
 const Header: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigateWithHash();
   const location = useLocation();
+  const { data: user, loading, error } = useAppSelector((state) => state.user);
 
   const handleRedirect = (path: string) => {
     navigate(path);
@@ -13,9 +16,11 @@ const Header: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.balance}>
-        <span>500<img src="./images/balance_icon.png" alt="" /></span>
-      </div>
+      {user && (
+        <div className={styles.balance}>
+          <span>{user.balance}<img src="./images/balance_icon.png" alt="" /></span>
+        </div>
+      )}
       <div>
         {location.pathname !== '/payments' && (
           <button onClick={() => handleRedirect('payments')}>Пополнить Баланс</button>
