@@ -49,6 +49,7 @@ const Payments: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div>
+        <h2>Пополнение баланса</h2>
         <ul className={styles.donateList}>
           {balancePayment.map(({ amount, price, text }, index) => (
             <li
@@ -74,6 +75,17 @@ const Payments: React.FC = () => {
           ))}
         </ul>
       </div>
+      <h2>Дополнительные возможности</h2>
+      <ul className={styles.donateListExtra}>
+        <li onClick={() => handleCreateTransaction('doubleDayReward', 200, 200)}>
+          <p>Удвоить ежедневную награду</p>
+          <div>200 <img src="./images/tg_stars.png" alt="" /></div>
+        </li>
+        <li onClick={() => handleCreateTransaction('ad', 150, 150)}>
+          <p>Отключить рекламу на 30 дней</p>
+          <div>150 <img src="./images/tg_stars.png" alt="" /></div>
+        </li>
+      </ul>
     </div>
   );
 }
