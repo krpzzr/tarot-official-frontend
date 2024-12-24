@@ -18,13 +18,13 @@ export interface Card {
 }
 
 interface CardsState {
-  cards: Card[];
+  data: Card[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: CardsState = {
-  cards: [],
+  data: [],
   loading: false,
   error: null,
 };
@@ -42,7 +42,7 @@ const cardsSlice = createSlice({
       })
       .addCase(fetchCards.fulfilled, (state, action) => {
         state.loading = false;
-        state.cards = action.payload;
+        state.data = action.payload;
       })
       .addCase(fetchCards.rejected, (state, action) => {
         state.loading = false;

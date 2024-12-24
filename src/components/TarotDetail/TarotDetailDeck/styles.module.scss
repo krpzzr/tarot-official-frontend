@@ -27,4 +27,29 @@
       transform: translate(0, -25px);
     }
   }
+
+  .cardDetails {
+
+    img {
+      width: 25px;
+      border-radius: 2px;
+    }
+  }
+
+  .table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .row {
+    display: flex;
+  }
+
+  .cell {
+    width: 25px;
+    height: 45px;
+    position: relative;
+  }
 }
