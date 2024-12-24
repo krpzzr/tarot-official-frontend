@@ -54,7 +54,7 @@ const BonusBalance: React.FC = () => {
               <div>{bonus.title}</div>
               <div className={styles.reward}>
                 <div>{bonus.reward}</div>
-                <img src="./images/balance_icon.png" alt="" />
+                <img src={`${window.location.origin}/images/balance_icon.png`} alt="" />
               </div>
             </li>
           ))}

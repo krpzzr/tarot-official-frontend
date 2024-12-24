@@ -18,7 +18,7 @@ const Header: React.FC = () => {
     <div className={styles.wrapper}>
       {user && (
         <div className={styles.balance}>
-          <span>{user.balance}<img src="./images/balance_icon.png" alt="" /></span>
+          <span>{user.balance}<img src={`${window.location.origin}/images/balance_icon.png`} alt="" /></span>
         </div>
       )}
       <div>

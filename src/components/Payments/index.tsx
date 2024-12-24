@@ -58,10 +58,10 @@ const Payments: React.FC = () => {
               onClick={() => handleCreateTransaction('balance', amount, price)}
             >
               <div className={styles.balanceAmount}>
-                {amount} <img src="./images/balance_icon.png" alt="" />
+                {amount} <img src={`${window.location.origin}/images/balance_icon.png`} alt="" />
               </div>
               <div className={styles.balancePrice}>
-                {price} <img src="./images/tg_stars.png" alt="" />
+                {price} <img src={`${window.location.origin}/images/tg_stars.png`} alt="" />
               </div>
               {text && (
                 <div className={styles.balanceDiscount}>
@@ -79,11 +79,11 @@ const Payments: React.FC = () => {
       <ul className={styles.donateListExtra}>
         <li onClick={() => handleCreateTransaction('doubleDayReward', 200, 200)}>
           <p>Удвоить ежедневную награду</p>
-          <div>200 <img src="./images/tg_stars.png" alt="" /></div>
+          <div>200 <img src={`${window.location.origin}/images/tg_stars.png`} alt="" /></div>
         </li>
         <li onClick={() => handleCreateTransaction('ad', 150, 150)}>
           <p>Отключить рекламу на 30 дней</p>
-          <div>150 <img src="./images/tg_stars.png" alt="" /></div>
+          <div>150 <img src={`${window.location.origin}/images/tg_stars.png`} alt="" /></div>
         </li>
       </ul>
     </div>

@@ -8,6 +8,7 @@ import YesNoGame from 'components/MysteryBall';
 import BonusBalance from 'components/Modal/ui/BonusBalance';
 import Modal from 'components/Modal';
 import Payments from 'components/Payments';
+import TarotDetail from 'components/TarotDetail';
 import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
 import { convertHashToQueryParam } from 'utils/urlUtils';
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
@@ -110,6 +111,7 @@ const App = () => {
        <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/tarot" element={<TarotList />} />
+        <Route path="/tarot/:id" element={<TarotDetail />} />
         <Route path="/magic-ball" element={<YesNoGame />} />
         <Route path="/rewards" element={<div>Rewards</div>} />
         <Route path="/payments" element={<Payments />} />

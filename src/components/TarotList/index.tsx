@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
 
+import { useNavigateWithHash } from 'utils/useNavigateWithHash';
+import { useCardLayouts } from './hooks';
+
 import styles from './styles.module.scss';
 
 const TarotList = () => {
+  const navigate = useNavigateWithHash();
+  const { data, loading, error } = useCardLayouts();
+
+  const handleClick = (id: number) => {
+    navigate(`/tarot/${id}`);
+  };
+
+  if (loading) return <div>Загрузка...</div>;
+  if (error) return <div>Ошибка: {error}</div>;
+
   return (
     <div className={styles.wrapper}>
       <h1>Расклады Таро</h1>
       <div>
         <ul className={styles.list}>
-          <li>
-            Краткий прогноз (4 карты)
-          </li>
-          <li>
-            Общий прогноз (3 карты)
-          </li>
-          <li>
-            Кельтский крест (10 карт)
-          </li>
-          <li>
-            Подкова (7 карт)
-          </li>
-          <li>
-            Алхимик (6 карт)
-          </li>
-          <li>
-            Тайна верховной жрицы (9 карт)
-          </li>
-          <li>
-            Выбор оптимального решения (9 карт)
-          </li>
-          <li>
-            Судьба и будущее (8 карт)
-          </li>
+          {data.map(({ id, title_ru, layout_type }) => (
+            <li
+              key={id}
+              onClick={() => handleClick(layout_type)}
+            >
+              {title_ru}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
