@@ -1,0 +1,30 @@
+.wrapper {
+  .deckIcon {
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    width: 50px;
+    left: 0;
+    right: 0;
+    bottom: 45px;
+    height: 100px;
+  }
+
+  .card {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .shuffling {
+    animation: shuffle 1s forwards; /* Анимация только при активации */
+  }
+  
+  /* Анимация тасования карт */
+  @keyframes shuffle {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate(0, -25px);
+    }
+  }
+}

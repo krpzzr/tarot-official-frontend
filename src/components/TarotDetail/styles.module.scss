@@ -1,3 +1,49 @@
-.description {
-  white-space: pre-wrap;
+.wrapper {
+  .description {
+    white-space: pre-wrap;
+  }
+
+  input {
+    border-radius: 5px; /* Бордер радиус */
+    background-color: #ffffff; /* Белый фон */
+    border: 1px solid #ccc; /* Легкая граница по умолчанию */
+    padding: 10px; /* Отступы внутри инпута */
+    font-size: 16px; /* Размер текста */
+    width: 100%; /* Растягивает инпут на всю доступную ширину */
+    box-sizing: border-box; /* Учитывает padding при вычислении ширины */
+    transition: border-color 0.3s ease; /* Плавное изменение цвета обводки */
+  }
+  
+  input:focus {
+    outline: none; /* Убираем стандартное обводку при фокусе */
+    border-color: #ffdc00; /* Цвет обводки при фокусе */
+  }
+
+  button {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    padding: 7px;
+    font-size: 18px;
+    color: #9855cf;
+    background: #fff;
+
+    &:disabled {
+      color: #a19f9f; /* Цвет текста при отключенной кнопке */
+      background: #f0f0f0; /* Цвет фона при отключенной кнопке */
+      cursor: not-allowed; /* Изменение курсора на "запрещено" */
+      opacity: 0.6; /* Уменьшаем непрозрачность для кнопки */
+    }
+    
+    img {
+      width: 17px;
+      height: auto;
+      padding-left: 3px;
+    }
+  }
 }

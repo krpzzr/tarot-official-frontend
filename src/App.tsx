@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
 import { convertHashToQueryParam } from 'utils/urlUtils';
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 import { fetchUserData } from 'toolkit/actions/userActions';
+import { fetchCards } from 'toolkit/actions/cardActions';
 
 import styles from './styles.module.scss';
 
@@ -82,6 +83,7 @@ const App = () => {
     localStorage.setItem('tg_query_param', queryParam);
 
     dispatch(fetchUserData());
+    dispatch(fetchCards());
   }, []);
 
   useEffect(() => {
