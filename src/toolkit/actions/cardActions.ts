@@ -13,8 +13,8 @@ export const fetchCards = createAsyncThunk<
     const queryParams = convertHashToQueryParam(window.location.search);
     const response = await axios.get(`${getAPIUrl()}/cards?${queryParams}`);
 
-    if (response.data.success) {
-      return response.data.cards;
+    if (response.data) {
+      return response.data;
     } else {
       return rejectWithValue('Ошибка загрузки раскладов.');
     }
