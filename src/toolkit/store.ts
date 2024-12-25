@@ -4,6 +4,7 @@ import userReducer from './reducers/userReducer';
 import modalReducer from './reducers/modalReducer'
 import cardLayoutReducer from './reducers/cardLayoutReducer';
 import cardsReducer from './reducers/cardsReducer';
+import cardLayoutHistoryReducer from './reducers/cardLayoutHistoryReducer';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     modal: modalReducer,
     layouts: cardLayoutReducer,
     cards: cardsReducer,
+    layoutHistory: cardLayoutHistoryReducer,
   },
 });
 

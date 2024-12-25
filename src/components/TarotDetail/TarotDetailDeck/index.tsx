@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { CardLayout } from 'toolkit/actions/cardLayoutActions';
-import { useAppSelector } from 'toolkit/hooks';
+import React, { useEffect, useState } from 'react';
+import { CardLayout, createCardLayout } from 'toolkit/actions/cardLayoutActions';
+import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
 import { Card } from 'toolkit/reducers/cardsReducer';
+import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 
 import styles from './styles.module.scss';
 
@@ -34,9 +35,10 @@ const table = [
     fillOrder: [
       { row: 1, cell: 1 },
       { row: 1, cell: 1 }, // Повторяется
+      { row: 2, cell: 1 },
       { row: 1, cell: 0 },
       { row: 0, cell: 1 },
-      { row: 2, cell: 2 },
+      { row: 1, cell: 2 },
       { row: 3, cell: 3 },
       { row: 2, cell: 3 },
       { row: 1, cell: 3 },
@@ -63,14 +65,14 @@ const table = [
     cells: 3,
     fillOrder: [
       { row: 0, cell: 1 },
-      { row: 1, cell: 0 },
-      { row: 1, cell: 2 },
       { row: 2, cell: 0 },
       { row: 2, cell: 2 },
+      { row: 1, cell: 0 },
+      { row: 1, cell: 2 },
       { row: 3, cell: 1 }
     ]
   },
-  {
+{
     id: 6,
     rows: 4,
     cells: 3,
@@ -80,9 +82,10 @@ const table = [
       { row: 0, cell: 1 },
       { row: 0, cell: 0 },
       { row: 0, cell: 2 },
+      { row: 1, cell: 0 },
       { row: 1, cell: 2 },
-      { row: 1, cell: 2 },
-      { row: 3, cell: 1 }
+      { row: 3, cell: 1 },
+      { row: 2, cell: 1 }
     ]
   },
   {
@@ -118,7 +121,9 @@ const table = [
   }
 ];
 
-const TarotDetailDeck: React.FC<{ tarot: CardLayout }> = ({ tarot }) => {
+const TarotDetailDeck: React.FC<{ tarot: CardLayout, question: string }> = ({ tarot, question }) => {
+  const navigate = useNavigateWithHash();
+  const dispatch = useAppDispatch();
   const { data: cards } = useAppSelector((state: any) => state.cards);
   const [selectedCards, setSelectedCards] = useState<Card[]>([]); // Для хранения массива выбранных карт
   const images = Array(5).fill(`${window.location.origin}/images/back.jpg`);
@@ -155,6 +160,32 @@ const TarotDetailDeck: React.FC<{ tarot: CardLayout }> = ({ tarot }) => {
       setShuffledIndex(null); // Сбрасываем анимацию после окончания
     }, 1000); // Время анимации
   };
+
+  useEffect(() => {
+    const submitCards = async () => {
+      try {
+        const payload = {
+          cardLayoutId: tarot.id,
+          cards: selectedCards,
+          question,
+        };
+
+        // Дождаться успешного выполнения dispatch
+        const response = await dispatch(createCardLayout(payload)).unwrap();
+
+        // Редирект после успешного ответа
+        navigate(`/card-layout-history/${response.id}`);
+      } catch (error) {
+        console.error('Ошибка при создании расклада карт:', error);
+        // Обработка ошибки (например, отображение уведомления)
+      }
+    };
+
+    if (selectedCards.length === tarot.card_count) {
+      submitCards();
+    }
+  }, [selectedCards, tarot.card_count, tarot.id, dispatch, question, navigate]);
+
 
   const currentTable = table.find(t => t.id === tarot.layout_type);
 

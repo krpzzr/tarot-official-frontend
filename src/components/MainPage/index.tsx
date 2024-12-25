@@ -23,13 +23,17 @@ const MainPage: React.FC = () => {
     <div className={styles.wrapper}>
       <div>
         <ul className={styles.list}>
+          <li onClick={() => handleRedirect('/magic-ball')}>
+            <img src="./images/ball.png" alt="" />
+            <span>Предсказания  <br /> Да/Нет</span>
+          </li>
           <li onClick={() => handleRedirect('/tarot')}>
             <img src="./images/tarot_cards.png" alt="" />
             <span>Расклады Таро</span>
           </li>
-          <li onClick={() => handleRedirect('/magic-ball')}>
-            <img src="./images/ball.png" alt="" />
-            <span>Предсказания  <br /> Да/Нет</span>
+          <li onClick={() => handleRedirect('/card-layout-history')}>
+            <img src="./images/history_layout.png" alt="" />
+            <span>История раскладов</span>
           </li>
         </ul>
       </div>

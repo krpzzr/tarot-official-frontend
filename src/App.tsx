@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation, To } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import Header from 'components/Header';
 import MainPage from 'components/MainPage';
@@ -9,13 +9,16 @@ import BonusBalance from 'components/Modal/ui/BonusBalance';
 import Modal from 'components/Modal';
 import Payments from 'components/Payments';
 import TarotDetail from 'components/TarotDetail';
-import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
+import LayoutHistoryDetail from 'components/LayoutHistoryDetail';
+import LayoutHistoryList from 'components/LayoutHistoryList';
+import { useAppDispatch } from 'toolkit/hooks';
 import { convertHashToQueryParam } from 'utils/urlUtils';
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 import { fetchUserData } from 'toolkit/actions/userActions';
 import { fetchCards } from 'toolkit/actions/cardActions';
 
 import styles from './styles.module.scss';
+import { fetchCardLayouts } from 'toolkit/actions/cardLayoutActions';
 
 interface EventData {
   eventType: string;
@@ -84,6 +87,7 @@ const App = () => {
 
     dispatch(fetchUserData());
     dispatch(fetchCards());
+    dispatch(fetchCardLayouts());
   }, []);
 
   useEffect(() => {
@@ -114,6 +118,8 @@ const App = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/tarot" element={<TarotList />} />
         <Route path="/tarot/:id" element={<TarotDetail />} />
+        <Route path="/card-layout-history/" element={<LayoutHistoryList />} />
+        <Route path="/card-layout-history/:id" element={<LayoutHistoryDetail />} />
         <Route path="/magic-ball" element={<YesNoGame />} />
         <Route path="/rewards" element={<div>Rewards</div>} />
         <Route path="/payments" element={<Payments />} />

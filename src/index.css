@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to bottom, #9b5dc9, #9751d1, #9145d9, #8938e1, #8029ea, #7522df, #691bd4, #5e13c9, #5115a8, #451689, #38156b, #2c134e);
+  /* background-image: linear-gradient(to bottom, #9b5dc9, #9751d1, #9145d9, #8938e1, #8029ea, #7522df, #691bd4, #5e13c9, #5115a8, #451689, #38156b, #2c134e); */
   background-repeat: no-repeat;
   min-height: 100vh;
   color: #fff;
@@ -15,6 +15,7 @@ body {
   -ms-user-select: none; /* Для IE */
   touch-action: manipulation; /* Отключение "долгого нажатия" */
   overscroll-behavior: none;
+  background: #351465;
 }
 
 code {

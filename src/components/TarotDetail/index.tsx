@@ -29,7 +29,7 @@ const TarotDetail: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      {tarot && tarotLayout && <TarotDetailDeck tarot={tarot} />}
+      {tarot && tarotLayout && <TarotDetailDeck tarot={tarot} question={question} />}
       {tarot && isQuestionShow && (
         <div>
           <h1>Задайте свой вопрос</h1>
