@@ -239,27 +239,25 @@ const TarotDetailDeck: React.FC<{ tarot: CardLayout, question: string }> = ({ ta
         </div>
       )}
       </div>
-      {selectedCards.length >= tarot.card_count ? (
-        <button>Получить подробный расклад</button>
-      ) : (
+      {selectedCards.length < tarot.card_count && (
         <div className={styles.deckIcon} onClick={handleCardClick}>
-          {images.map((src, index) => (
-            <img
-              key={index}
-              src={src}
-              alt={`card-${index}`}
-              className={shuffledIndex === index ? styles.shuffling : ''}
-              style={{
-                position: 'absolute',
-                top: `${index * 3}px`,
-                left: `${index * 3}px`,
-                width: '50px',
-                height: 'auto',
-                zIndex: 5 - index,
-              }}
-            />
-          ))}
-        </div>
+        {images.map((src, index) => (
+          <img
+            key={index}
+            src={src}
+            alt={`card-${index}`}
+            className={shuffledIndex === index ? styles.shuffling : ''}
+            style={{
+              position: 'absolute',
+              top: `${index * 3}px`,
+              left: `${index * 3}px`,
+              width: '50px',
+              height: 'auto',
+              zIndex: 5 - index,
+            }}
+          />
+        ))}
+      </div>
       )}
     </div>
   );
