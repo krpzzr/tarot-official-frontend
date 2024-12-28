@@ -25,8 +25,10 @@ const TarotList = () => {
             <li
               key={id}
               onClick={() => handleClick(layout_type)}
+              className={[1,2,8].includes(layout_type) ? styles.forBeginners : ''}
             >
               {title_ru}
+              {[1,2,8].includes(layout_type) && <span>Для новичков</span>}
             </li>
           ))}
         </ul>

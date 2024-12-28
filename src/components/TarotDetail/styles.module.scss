@@ -1,4 +1,10 @@
 .wrapper {
+  padding: 20px;
+
+  h1 {
+    margin-top: 0;
+  }
+
   .description {
     white-space: pre-wrap;
   }
@@ -32,6 +38,7 @@
     font-size: 18px;
     color: #9855cf;
     background: #fff;
+    margin-top: 20px;
 
     &:disabled {
       color: #a19f9f; /* Цвет текста при отключенной кнопке */

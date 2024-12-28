@@ -10,12 +10,13 @@ body {
   min-height: 100vh;
   color: #fff;
   -webkit-tap-highlight-color: transparent;
-  user-select: none; /* Отключение выделения текста */
-  -webkit-user-select: none; /* Для iOS */
-  -ms-user-select: none; /* Для IE */
-  touch-action: manipulation; /* Отключение "долгого нажатия" */
+  /* user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none; */
+  /* touch-action: manipulation; */
   overscroll-behavior: none;
   background: #351465;
+  overflow-wrap: break-word;
 }
 
 code {
@@ -25,6 +26,10 @@ code {
 
 .disabled-scroll {
   overflow: hidden;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 h1 { 

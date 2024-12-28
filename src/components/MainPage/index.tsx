@@ -25,7 +25,7 @@ const MainPage: React.FC = () => {
         <ul className={styles.list}>
           <li onClick={() => handleRedirect('/magic-ball')}>
             <img src="./images/ball.png" alt="" />
-            <span>Предсказания  <br /> Да/Нет</span>
+            <span>Предсказания Да/Нет</span>
           </li>
           <li onClick={() => handleRedirect('/tarot')}>
             <img src="./images/tarot_cards.png" alt="" />

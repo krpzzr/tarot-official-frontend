@@ -55,57 +55,55 @@ const LayoutHistoryDetail: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.wrapper}>
-        <h1>{layout.question}</h1>
-        {layoutCategories ? (
-          <ul className={styles.list}>
-            {layoutCategories.categories.map((categoryName, index) => {
-              let cardIdsToDisplay: number[] = [];
-  
-              if (layout.cardLayout.layout_type === 7 && categoryName === 'Результат претворения решения в жизнь') {
-                // Для категории "Результат претворения решения в жизнь" отображаем последние 2 карты
-                cardIdsToDisplay = layout.cards.slice(-2);
-              } else if (layout.cardLayout.layout_type === 8) {
-                if (categoryName === 'Текущая ситуация') {
-                  // Для "Текущей ситуации" отображаем первые 2 карты
-                  cardIdsToDisplay = layout.cards.slice(0, 2);
-                } else if (categoryName === 'Ближайшее будущее') {
-                  // Для "Ближайшего будущего" отображаем следующие 3 карты
-                  cardIdsToDisplay = layout.cards.slice(2, 5);
-                } else {
-                  // Для остальных категорий распределяем оставшиеся карты
-                  const alreadyDisplayed = 5; // Учитываем, что первые 5 карт уже использованы
-                  const currentCategoryIndex = layoutCategories.categories.indexOf(categoryName);
-                  cardIdsToDisplay = layout.cards.slice(alreadyDisplayed + currentCategoryIndex - 2, alreadyDisplayed + currentCategoryIndex - 1);
-                }
+      <h1>{layout.question}</h1>
+      {layoutCategories ? (
+        <ul className={styles.list}>
+          {layoutCategories.categories.map((categoryName, index) => {
+            let cardIdsToDisplay: number[] = [];
+
+            if (layout.cardLayout.layout_type === 7 && categoryName === 'Результат претворения решения в жизнь') {
+              // Для категории "Результат претворения решения в жизнь" отображаем последние 2 карты
+              cardIdsToDisplay = layout.cards.slice(-2);
+            } else if (layout.cardLayout.layout_type === 8) {
+              if (categoryName === 'Текущая ситуация') {
+                // Для "Текущей ситуации" отображаем первые 2 карты
+                cardIdsToDisplay = layout.cards.slice(0, 2);
+              } else if (categoryName === 'Ближайшее будущее') {
+                // Для "Ближайшего будущего" отображаем следующие 3 карты
+                cardIdsToDisplay = layout.cards.slice(2, 5);
               } else {
-                // Для остальных категорий отображаем карту по индексу
-                cardIdsToDisplay = layout.cards.slice(index, index + 1);
+                // Для остальных категорий распределяем оставшиеся карты
+                const alreadyDisplayed = 5; // Учитываем, что первые 5 карт уже использованы
+                const currentCategoryIndex = layoutCategories.categories.indexOf(categoryName);
+                cardIdsToDisplay = layout.cards.slice(alreadyDisplayed + currentCategoryIndex - 2, alreadyDisplayed + currentCategoryIndex - 1);
               }
-  
-              return (
-                <li key={index}>
-                  <h2>{categoryName}</h2>
-                  <div>
-                    {cardIdsToDisplay.map((cardId) => {
-                      const card = cards.find((c) => c.id === Number(cardId));
-                      return card ? (
-                        <div key={cardId}>
-                          <img src={`${window.location.origin}/images/cards_list/${card.image}`} alt={card.nameRu} />
-                          <h3>{card.nameRu}</h3>
-                          <p>{card.descriptionRu}</p>
-                        </div>
-                      ) : null;
-                    })}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <p>Категории для данного типа расклада не найдены</p>
-        )}
-      </div>
+            } else {
+              // Для остальных категорий отображаем карту по индексу
+              cardIdsToDisplay = layout.cards.slice(index, index + 1);
+            }
+
+            return (
+              <li key={index}>
+                <h2>{categoryName}</h2>
+                <div>
+                  {cardIdsToDisplay.map((cardId) => {
+                    const card = cards.find((c) => c.id === Number(cardId));
+                    return card ? (
+                      <div key={cardId}>
+                        <img src={`${window.location.origin}/images/cards_list/${card.image}`} alt={card.nameRu} />
+                        <h3>{card.nameRu}</h3>
+                        <p>{card.descriptionRu}</p>
+                      </div>
+                    ) : null;
+                  })}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p>Категории для данного типа расклада не найдены</p>
+      )}
     </div>
   );
 }

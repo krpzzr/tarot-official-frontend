@@ -41,6 +41,13 @@ const App = () => {
   const navigate = useNavigateWithHash();
 
   useEffect(() => {
+    // Скроллим страницу вверх при изменении маршрута
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }, [location]);
+
+  useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
@@ -49,9 +56,9 @@ const App = () => {
         // @ts-ignore
         window.Telegram.WebApp.requestFullscreen();
         window.Telegram.WebApp.disableVerticalSwipes();
-        window.Telegram.WebApp.backgroundColor = '#000000';
-        window.Telegram.WebApp.headerColor = '#000000';
-        window.Telegram.WebApp.bottomBarColor = '#000000';
+        window.Telegram.WebApp.backgroundColor = '#351465';
+        window.Telegram.WebApp.headerColor = '#351465';
+        window.Telegram.WebApp.bottomBarColor = '#351465';
         window.Telegram.WebApp.isClosingConfirmationEnabled = true;
       } catch (error: any) {
         if (error.message === 'WebAppMethodUnsupported') {

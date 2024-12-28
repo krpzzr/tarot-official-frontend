@@ -1,10 +1,9 @@
 .wrapper {
   padding: 20px;
-  padding-top: 0;
+  padding-top: 10px;
   text-align: center;
 
   .balance {
-    font-size: 35px;
     font-weight: bold;
     color: #9855cf;
     padding-bottom: 10px;
@@ -14,7 +13,7 @@
     
     img {
       padding-left: 5px;
-      width: 28px;
+      width: 20px;
       height: auto;
     }
 
@@ -24,6 +23,7 @@
       padding: 5px;
       display: flex;
       align-items: center;
+      font-size: 15px;
     }
   }
 
@@ -31,11 +31,11 @@
     border: none;
     background-color: #ffdc00;
     color: #9855cf;
-    font-size: 18px;
+    font-size: 13px;
     text-transform: uppercase;
     font-weight: bold;
     border-radius: 10px;
-    padding: 7px;
-    width: 100%;
+    padding: 5px;
+    width: 172px;
   }
 }

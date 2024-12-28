@@ -6,7 +6,7 @@
     width: 50px;
     left: 0;
     right: 0;
-    bottom: 45px;
+    bottom: 12px;
     height: 100px;
   }
 
@@ -31,8 +31,9 @@
   .cardDetails {
 
     img {
-      width: 25px;
-      border-radius: 2px;
+      width: 73px;
+      border-radius: 10px;
+      margin: auto;
     }
   }
 
@@ -48,8 +49,8 @@
   }
 
   .cell {
-    width: 25px;
-    height: 45px;
+    width: 87px;
+    height: 146px;
     position: relative;
   }
 }
