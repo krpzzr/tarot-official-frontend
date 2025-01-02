@@ -8,6 +8,7 @@ import { useCardLayoutsHistory } from 'components/LayoutHistoryList/hooks';
 
 import styles from './styles.module.scss';
 import { convertHashToQueryParam, getAPIUrl } from 'utils/urlUtils';
+import { formatText } from 'utils/formattint';
 
 const categories = [
   {
@@ -261,17 +262,6 @@ const override: CSSProperties = {
   // margin: "0 auto",
 };
 
-
-const formatText = (text: string) => {
-  // Заменяем \n на <br /> для переноса строк
-  let formattedText = text.replace(/\n/g, '<br />');
-  
-  // Заменяем **текст** на <strong>текст</strong> для жирного текста
-  formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-  return formattedText;
-};
-
 const LayoutHistoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [currentTab, setCurrentTab] = useState(0);
@@ -443,7 +433,7 @@ const LayoutHistoryDetail: React.FC = () => {
           className={`${styles.aiButton} ${isLoading ? styles.loadingButton : ''}`}
           onClick={handleGetAiAnswer}
         >
-          {isLoading ? 'Формируем подробный расклад' : 'Получить подробный разбор расклада'}
+          {isLoading ? 'Формируем подробное толкование' : 'Получить подробное толкование расклада'}
           {isLoading ? (
             <div
               style={{

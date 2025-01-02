@@ -6,18 +6,26 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onRedirect: () => void;
+  title?: string;
+  buttonText: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onRedirect }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  onRedirect,
+  title = 'Для продолжения необходимо подписаться на Telegram',
+  buttonText,
+}) => {
   if (!isOpen) return null;
 
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2>Для продолжения необходимо подписаться на Telegram-канал</h2>
+        <h2>{title}</h2>
         <div className={styles.actions}>
           <button onClick={onRedirect} className={styles.primaryButton}>
-            Перейти в Telegram
+            {buttonText}
           </button>
           <button onClick={onClose} className={styles.secondaryButton}>
             Закрыть

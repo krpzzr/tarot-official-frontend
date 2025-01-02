@@ -16,6 +16,7 @@ const TarotDetail: React.FC = () => {
   const [isQuestionShow, showQuestion] = useState<boolean>(false);
   const [tarotLayout, showTarotLayout] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [buttonText, setButtonText] = useState<string>('Перейти в Telegram');
   const { data: user } = useAppSelector((state) => state.user);
 
   const { data, loading, error } = useCardLayouts();
@@ -57,12 +58,30 @@ const TarotDetail: React.FC = () => {
     showQuestion(false);
   };
 
-  const handleRedirect = () => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.openTelegramLink('https://t.me/psychology_truth');
+  const handleRedirect = async () => {
+    if (buttonText === 'Проверить подписку') {
+      try {
+        const queryParams = convertHashToQueryParam(window.location.search);
+        const response = await axios.get(`${getAPIUrl()}/check-subscription?${queryParams}&channelId=@psychology_truth`);
+        const isSubscribed = response.data?.isSubscribed;
+  
+        if (isSubscribed) {
+          showQuestion(true);
+          setModalOpen(false);
+        }
+      } catch (error) {
+        console.error('Ошибка при проверке подписки:', error);
+        setButtonText('Перейти в Telegram');
+      }
     } else {
-      window.open('https://t.me/psychology_truth', '_blank')
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.openTelegramLink('https://t.me/psychology_truth');
+      } else {
+        window.open('https://t.me/psychology_truth', '_blank')
+      }
     }
+
+    setButtonText('Проверить подписку');
   };
 
   return (
@@ -71,6 +90,7 @@ const TarotDetail: React.FC = () => {
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onRedirect={handleRedirect}
+        buttonText={buttonText}
       />
       {tarot && tarotLayout && <TarotDetailDeck tarot={tarot} question={question} />}
       {tarot && isQuestionShow && (

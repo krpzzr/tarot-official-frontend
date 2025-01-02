@@ -5,6 +5,7 @@ import modalReducer from './reducers/modalReducer'
 import cardLayoutReducer from './reducers/cardLayoutReducer';
 import cardsReducer from './reducers/cardsReducer';
 import cardLayoutHistoryReducer from './reducers/cardLayoutHistoryReducer';
+import chatHistoryReducer from './reducers/chatHistoryReducer';
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     layouts: cardLayoutReducer,
     cards: cardsReducer,
     layoutHistory: cardLayoutHistoryReducer,
+    chat: chatHistoryReducer,
   },
 });
 

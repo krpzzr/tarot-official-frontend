@@ -21,38 +21,33 @@
   margin-left: 20px;
   margin-right: 20px;
   color: #000;
-}
 
-.actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.primaryButton {
-  background: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.primaryButton:hover {
-  background: #0056b3;
-}
-
-.secondaryButton {
-  background: #f8f9fa;
-  color: #333;
-  border: 1px solid #ccc;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.secondaryButton:hover {
-  background: #e2e6ea;
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .primaryButton {
+    background: #351465;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .primaryButton:hover {
+    background: #220e3e;
+  }
+  
+  .secondaryButton {
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+  }
 }
