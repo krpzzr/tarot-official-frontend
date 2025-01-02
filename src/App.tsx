@@ -11,6 +11,7 @@ import Payments from 'components/Payments';
 import TarotDetail from 'components/TarotDetail';
 import LayoutHistoryDetail from 'components/LayoutHistoryDetail';
 import LayoutHistoryList from 'components/LayoutHistoryList';
+import Chat from 'components/Chat';
 import { useAppDispatch } from 'toolkit/hooks';
 import { convertHashToQueryParam } from 'utils/urlUtils';
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
@@ -120,6 +121,7 @@ const App = () => {
         <Route path="/magic-ball" element={<YesNoGame />} />
         <Route path="/rewards" element={<div>Rewards</div>} />
         <Route path="/payments" element={<Payments />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
       <Modal>
         <BonusBalance />

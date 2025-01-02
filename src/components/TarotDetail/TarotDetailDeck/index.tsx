@@ -218,6 +218,7 @@ const TarotDetailDeck: React.FC<{ tarot: CardLayout, question: string }> = ({ ta
                             position: 'absolute',
                             left: 0,
                             right: 0,
+                            zIndex: fillIndex > 0 ? 1 : 0,
                           }}
                         />
                       );

@@ -35,6 +35,10 @@ const MainPage: React.FC = () => {
             <img src="./images/history_layout.png" alt="" />
             <span>История раскладов</span>
           </li>
+          <li onClick={() => handleRedirect('/chat')}>
+            <img src="./images/chat.png" alt="" />
+            <span>Онлайн консультация</span>
+          </li>
         </ul>
       </div>
     </div>

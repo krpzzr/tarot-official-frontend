@@ -11,7 +11,6 @@ function convertHashToQueryParam(currentUrl: string): string {
   if (hash) {
     const cleanHash = hash.substring(1); // Убираем #
     // Формируем новый URL
-    console.log('currentUrl', currentUrl);
     const newUrl = currentUrl.split('#')[0] + (currentUrl.length ? '&' : '?') + cleanHash;
 
     return new URLSearchParams(newUrl).toString();
