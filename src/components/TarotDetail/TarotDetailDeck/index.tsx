@@ -3,6 +3,7 @@ import { CardLayout, createCardLayout } from 'toolkit/actions/cardLayoutActions'
 import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
 import { Card } from 'toolkit/reducers/cardsReducer';
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
+import { setBalance } from 'toolkit/reducers/userReducer';
 
 import styles from './styles.module.scss';
 
@@ -124,12 +125,13 @@ const table = [
 const TarotDetailDeck: React.FC<{ tarot: CardLayout, question: string }> = ({ tarot, question }) => {
   const navigate = useNavigateWithHash();
   const dispatch = useAppDispatch();
-  const { data: cards } = useAppSelector((state: any) => state.cards);
+  const { data: cards } = useAppSelector((state) => state.cards);
+  const { data: user } = useAppSelector((state) => state.user);
   const [selectedCards, setSelectedCards] = useState<Card[]>([]); // Для хранения массива выбранных карт
   const images = Array(5).fill(`${window.location.origin}/images/back.jpg`);
   const [shuffledIndex, setShuffledIndex] = useState<number | null>(null);
 
-  const handleCardClick = () => {
+  const handleCardClick = async () => {
     if (shuffledIndex !== null || selectedCards.length >= tarot.card_count) return; // Если анимация идет или уже выбрано максимальное количество карт, не выбираем карты
 
     let availableCards = [...cards];
@@ -156,35 +158,48 @@ const TarotDetailDeck: React.FC<{ tarot: CardLayout, question: string }> = ({ ta
     setSelectedCards(prevState => [...prevState, randomCard]);
     setShuffledIndex(0);
 
+    const cardsUpdated = [...selectedCards, randomCard];
+    if (cardsUpdated.length === tarot.card_count) {
+      const payload = {
+        cardLayoutId: tarot.id,
+        cards: cardsUpdated,
+        question,
+      };
+      // Дождаться успешного выполнения dispatch
+      const response = await dispatch(createCardLayout(payload)).unwrap();
+
+      // Редирект после успешного ответа
+      navigate(`/card-layout-history/${response.id}`);
+    }
+
     setTimeout(() => {
       setShuffledIndex(null); // Сбрасываем анимацию после окончания
     }, 1000); // Время анимации
   };
 
-  useEffect(() => {
-    const submitCards = async () => {
-      try {
-        const payload = {
-          cardLayoutId: tarot.id,
-          cards: selectedCards,
-          question,
-        };
+  // useEffect(() => {
+  //   const submitCards = async () => {
+  //     try {
+  //       const payload = {
+  //         cardLayoutId: tarot.id,
+  //         cards: selectedCards,
+  //         question,
+  //       };
+  //       // Дождаться успешного выполнения dispatch
+  //       const response = await dispatch(createCardLayout(payload)).unwrap();
 
-        // Дождаться успешного выполнения dispatch
-        const response = await dispatch(createCardLayout(payload)).unwrap();
+  //       // Редирект после успешного ответа
+  //       navigate(`/card-layout-history/${response.id}`);
+  //     } catch (error) {
+  //       console.error('Ошибка при создании расклада карт:', error);
+  //       // Обработка ошибки (например, отображение уведомления)
+  //     }
+  //   };
 
-        // Редирект после успешного ответа
-        navigate(`/card-layout-history/${response.id}`);
-      } catch (error) {
-        console.error('Ошибка при создании расклада карт:', error);
-        // Обработка ошибки (например, отображение уведомления)
-      }
-    };
-
-    if (selectedCards.length === tarot.card_count) {
-      submitCards();
-    }
-  }, [selectedCards, tarot.card_count, tarot.id, dispatch, question, navigate]);
+  //   if (selectedCards.length === tarot.card_count) {
+  //     submitCards();
+  //   }
+  // }, [selectedCards, tarot.card_count, tarot.id, dispatch, question, navigate]);
 
 
   const currentTable = table.find(t => t.id === tarot.layout_type);

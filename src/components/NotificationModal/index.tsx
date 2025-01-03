@@ -6,7 +6,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onRedirect: () => void;
-  title?: string;
+  title: string;
   buttonText: string;
 }
 
@@ -14,7 +14,7 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   onRedirect,
-  title = 'Для продолжения необходимо подписаться на Telegram',
+  title,
   buttonText,
 }) => {
   if (!isOpen) return null;

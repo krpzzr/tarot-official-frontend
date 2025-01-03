@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 import { useCardLayouts } from 'components/TarotList/hooks';
 import TarotDetailDeck from './TarotDetailDeck';
 import Modal from 'components/NotificationModal';
@@ -16,8 +17,11 @@ const TarotDetail: React.FC = () => {
   const [isQuestionShow, showQuestion] = useState<boolean>(false);
   const [tarotLayout, showTarotLayout] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isModalBalanceOpen, setModalBalanceOpen] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>('Перейти в Telegram');
+  const [modalTitle, setModalTitle] = useState<string>('Для продолжения необходимо подписаться на Telegram');
   const { data: user } = useAppSelector((state) => state.user);
+  const navigate = useNavigateWithHash();
 
   const { data, loading, error } = useCardLayouts();
 
@@ -54,8 +58,14 @@ const TarotDetail: React.FC = () => {
   };
 
   const handleCreateLayout = (id: number) => {
-    showTarotLayout(true);
-    showQuestion(false);
+    if (user.balance < 5) {
+      setModalBalanceOpen(true);
+      setButtonText('Пополнить баланс');
+      setModalTitle('Не хватает средств на балансе');
+    } else {
+      showTarotLayout(true);
+      showQuestion(false);
+    }
   };
 
   const handleRedirect = async () => {
@@ -84,12 +94,24 @@ const TarotDetail: React.FC = () => {
     setButtonText('Проверить подписку');
   };
 
+  const handleRedirectBalance = () => {
+    navigate('/payments');
+  };
+
   return (
     <div className={styles.wrapper}>
       <Modal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onRedirect={handleRedirect}
+        title={modalTitle}
+        buttonText={buttonText}
+      />
+      <Modal
+        isOpen={isModalBalanceOpen}
+        onClose={() => setModalBalanceOpen(false)}
+        onRedirect={handleRedirectBalance}
+        title={modalTitle}
         buttonText={buttonText}
       />
       {tarot && tarotLayout && <TarotDetailDeck tarot={tarot} question={question} />}

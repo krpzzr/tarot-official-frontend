@@ -1,11 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Card } from 'toolkit/reducers/cardsReducer';
+import { setBalance } from 'toolkit/reducers/userReducer';
 import { convertHashToQueryParam, getAPIUrl } from 'utils/urlUtils';
-
-interface FetchCardLayoutsParams {
-  type?: string; // Фильтр по типу (опционально)
-}
+import { RootState } from 'toolkit/store'; // Импортируйте тип состояния вашего приложения
 
 export interface CardLayout {
   id: number;
@@ -40,9 +38,13 @@ export const fetchCardLayouts = createAsyncThunk<
   }
 });
 
-export const createCardLayout = createAsyncThunk(
+export const createCardLayout = createAsyncThunk<
+  any,
+  { cardLayoutId: number; cards: Card[]; question?: string },
+  { state: RootState; rejectValue: any }
+>(
   'cardLayout/createCardLayout',
-  async (data: { cardLayoutId: number; cards: Card[]; question?: string }, { rejectWithValue }) => {
+  async (data, thunkAPI) => {
     try {
       const queryParams = convertHashToQueryParam(window.location.search);
       const response = await axios.post(`${getAPIUrl()}/create-card-layout?${queryParams}`, {
@@ -50,12 +52,14 @@ export const createCardLayout = createAsyncThunk(
         cards: data.cards,
         question: data.question,
       });
+      const state = thunkAPI.getState();
+      thunkAPI.dispatch(setBalance(state.user.data.balance - 5));
       return response.data; // Возвращаем успешный результат
     } catch (error: any) {
       if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data); // Если есть ошибка от сервера
+        return thunkAPI.rejectWithValue(error.response.data); // Если есть ошибка от сервера
       }
-      return rejectWithValue({ message: 'An error occurred while creating the card layout.' });
+      return thunkAPI.rejectWithValue({ message: 'An error occurred while creating the card layout.' });
     }
   }
 );
