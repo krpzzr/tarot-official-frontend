@@ -158,49 +158,24 @@ const TarotDetailDeck: React.FC<{ tarot: CardLayout, question: string }> = ({ ta
     setSelectedCards(prevState => [...prevState, randomCard]);
     setShuffledIndex(0);
 
-    const cardsUpdated = [...selectedCards, randomCard];
-    if (cardsUpdated.length === tarot.card_count) {
-      const payload = {
-        cardLayoutId: tarot.id,
-        cards: cardsUpdated,
-        question,
-      };
-      // Дождаться успешного выполнения dispatch
-      const response = await dispatch(createCardLayout(payload)).unwrap();
-
-      // Редирект после успешного ответа
-      navigate(`/card-layout-history/${response.id}`);
-    }
-
-    setTimeout(() => {
+    setTimeout(async () => {
       setShuffledIndex(null); // Сбрасываем анимацию после окончания
+
+      const cardsUpdated = [...selectedCards, randomCard];
+      if (cardsUpdated.length === tarot.card_count) {
+        const payload = {
+          cardLayoutId: tarot.id,
+          cards: cardsUpdated,
+          question,
+        };
+        // Дождаться успешного выполнения dispatch
+        const response = await dispatch(createCardLayout(payload)).unwrap();
+  
+        // Редирект после успешного ответа
+        navigate(`/card-layout-history/${response.id}`);
+      }
     }, 1000); // Время анимации
   };
-
-  // useEffect(() => {
-  //   const submitCards = async () => {
-  //     try {
-  //       const payload = {
-  //         cardLayoutId: tarot.id,
-  //         cards: selectedCards,
-  //         question,
-  //       };
-  //       // Дождаться успешного выполнения dispatch
-  //       const response = await dispatch(createCardLayout(payload)).unwrap();
-
-  //       // Редирект после успешного ответа
-  //       navigate(`/card-layout-history/${response.id}`);
-  //     } catch (error) {
-  //       console.error('Ошибка при создании расклада карт:', error);
-  //       // Обработка ошибки (например, отображение уведомления)
-  //     }
-  //   };
-
-  //   if (selectedCards.length === tarot.card_count) {
-  //     submitCards();
-  //   }
-  // }, [selectedCards, tarot.card_count, tarot.id, dispatch, question, navigate]);
-
 
   const currentTable = table.find(t => t.id === tarot.layout_type);
 
