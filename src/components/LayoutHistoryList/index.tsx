@@ -1,4 +1,5 @@
 import React from 'react';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { useCardLayoutsHistory } from './hooks';
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
@@ -23,9 +24,7 @@ const LayoutHistoryList: React.FC = () => {
           {list.map(item => (
             <li key={item.id} onClick={() => handleRedirect(`/card-layout-history/${item.id}`)}>
               <div>{item.question}</div>
-              <div>
-                <button>Открыть</button>
-              </div>
+              <KeyboardArrowRightIcon />
             </li>
           ))}
         </ul>

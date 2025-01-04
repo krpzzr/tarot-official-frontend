@@ -1,8 +1,22 @@
 .wrapper {
+  
+  .topMenu {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: #b49ef1;
+
+    div, svg {
+      cursor: pointer;
+    }
+  }
+
   .list {
     list-style: none;
     padding: 20px;
     margin: 0;
+    padding-top: 10px;
 
     li {
       background: #fff;

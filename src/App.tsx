@@ -17,9 +17,10 @@ import { convertHashToQueryParam } from 'utils/urlUtils';
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 import { fetchUserData } from 'toolkit/actions/userActions';
 import { fetchCards } from 'toolkit/actions/cardActions';
+import { fetchCardLayouts } from 'toolkit/actions/cardLayoutActions';
+import Friends from 'components/Friends';
 
 import styles from './styles.module.scss';
-import { fetchCardLayouts } from 'toolkit/actions/cardLayoutActions';
 
 interface EventData {
   eventType: string;
@@ -122,6 +123,7 @@ const App = () => {
         <Route path="/rewards" element={<div>Rewards</div>} />
         <Route path="/payments" element={<Payments />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/friends" element={<Friends />} />
       </Routes>
       <Modal>
         <BonusBalance />

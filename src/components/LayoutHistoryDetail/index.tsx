@@ -20,6 +20,7 @@ const LayoutHistoryDetail: React.FC = () => {
   const [aiAnswer, setAiAnswer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalBalanceOpen, setModalBalanceOpen] = useState(false);
+  const [isModalAiAnswerOpen, setModalAiAnswerOpen] = useState(false);
   const navigate = useNavigateWithHash();
   const dispatch = useAppDispatch();
 

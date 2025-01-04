@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 
-const results = ["Да", "Нет", "Может быть", "Скорее всего да", "Точно нет", "Скорее всего нет"];
+const results =  ["Да", "Нет", "Очень сомнительно", "Может быть", "Сомнительно", "Не сейчас", "Спроси позже", "Возможно", "Похоже, что да", "Знаки говорят, что нет"];
 
 const generateParticles = (count: number) => {
   return Array.from({ length: count }).map(() => ({
@@ -14,7 +14,7 @@ const generateParticles = (count: number) => {
 
 const MagicBall = () => {
   const [answer, setAnswer] = useState<string>("");
-  const [isShaking, setShaking] = useState<boolean>(false);
+  const [isBouncing, setBouncing] = useState<boolean>(false);
   const [particles, setParticles] = useState<Array<{ top: string; left: string; animationDuration: string; animationDelay: string }>>([]);
 
   useEffect(() => {
@@ -22,22 +22,19 @@ const MagicBall = () => {
   }, []);
 
   const handleClick = () => {
-    if (isShaking) return;
+    if (isBouncing) return;
     setAnswer('');
-    setShaking(true);
+    setBouncing(true);
     setTimeout(() => {
       const randomAnswer = results[Math.floor(Math.random() * results.length)];
       setAnswer(randomAnswer);
-      setShaking(false);
-    }, 3000); // Анимация длится 3 секунды
+      setBouncing(false);
+    }, 3000); // Длительность анимации 3 секунды
   };
 
   return (
     <div className={styles.container}>
-      <div
-        className={`${styles.ball} ${isShaking ? styles.shaking : ""}`}
-        onClick={handleClick}
-      >
+      <div className={`${styles.ball} ${isBouncing ? styles.bouncing : ''}`} onClick={handleClick}>
         <div className={styles.particles}>
           {particles.map((particle, index) => (
             <div
@@ -49,10 +46,10 @@ const MagicBall = () => {
                 animationDuration: particle.animationDuration,
                 animationDelay: particle.animationDelay,
               }}
-            ></div>
+            />
           ))}
         </div>
-        <div className={styles.answer}>{answer || ''}</div>
+        <div className={styles.answer}>{answer}</div>
       </div>
     </div>
   );

@@ -38,10 +38,6 @@ const Payments: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigateWithHash();
 
-  const handleRedirect = (path: string) => {
-    navigate(path);
-  };
-
   const handleCreateTransaction = (type: string, amount: number, price: number) => {
     dispatch(createInvoice({ type, amount, price }))
   }

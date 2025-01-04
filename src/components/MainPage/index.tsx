@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PeopleIcon from '@mui/icons-material/People';
 
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 
@@ -22,6 +23,12 @@ const MainPage: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div>
+        <div className={styles.topMenu}>
+          <div onClick={() => handleRedirect('/card-of-the-day')}>
+            Карта дня
+          </div>
+          <PeopleIcon onClick={() => handleRedirect('/friends')} />
+        </div>
         <ul className={styles.list}>
           <li onClick={() => handleRedirect('/magic-ball')}>
             <img src="./images/ball.png" alt="" />

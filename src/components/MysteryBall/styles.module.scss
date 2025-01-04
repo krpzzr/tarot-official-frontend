@@ -4,15 +4,15 @@ $particle-color: #fff;
 $text-color: #ffffff;
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 55px;
-    transform: translateY(-50%);
-    left: 0;
-    right: 0;
-    top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 55px;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  top: 50%;
 }
 
 .ball {
@@ -26,11 +26,11 @@ $text-color: #ffffff;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transform: perspective(600px) rotateX(0deg) rotateY(0deg);
+  transform: translateY(0);
   transition: transform 0.3s ease-in-out;
 
-  &.shaking {
-    animation: shake 3s ease-in-out;
+  &.bouncing {
+    animation: bounce 3s ease-in-out;
   }
 }
 
@@ -55,30 +55,22 @@ $text-color: #ffffff;
 .answer {
   position: absolute;
   color: $text-color;
-  font-size: 1.5rem;
+  font-size: 30px;
   font-weight: bold;
   text-align: center;
   user-select: none;
   pointer-events: none;
   z-index: 1;
+  bottom: -92px;
+  width: 300px;
 }
 
-@keyframes shake {
-  0%,
-  100% {
-    transform: perspective(600px) rotateX(0deg) rotateY(0deg);
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
   }
-  20% {
-    transform: perspective(600px) rotateX(-10deg) rotateY(-10deg);
-  }
-  40% {
-    transform: perspective(600px) rotateX(10deg) rotateY(10deg);
-  }
-  60% {
-    transform: perspective(600px) rotateX(-10deg) rotateY(10deg);
-  }
-  80% {
-    transform: perspective(600px) rotateX(10deg) rotateY(-10deg);
+  50% {
+    transform: translateY(-20px);
   }
 }
 

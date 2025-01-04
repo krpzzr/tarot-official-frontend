@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 import { useCardLayouts } from './hooks';
