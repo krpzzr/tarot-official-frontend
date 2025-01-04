@@ -13,20 +13,21 @@ import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 import { setBalance } from 'toolkit/reducers/userReducer';
 
 import styles from './styles.module.scss';
+import { setIsLoadingAiLayout } from 'toolkit/reducers/loadingReducer';
 
 const LayoutHistoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [currentTab, setCurrentTab] = useState(0);
   const [aiAnswer, setAiAnswer] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [isModalBalanceOpen, setModalBalanceOpen] = useState(false);
-  const [isModalAiAnswerOpen, setModalAiAnswerOpen] = useState(false);
   const navigate = useNavigateWithHash();
   const dispatch = useAppDispatch();
 
   const { data: list } = useCardLayoutsHistory();
   const { data: cards } = useAppSelector((state) => state.cards);
   const { data: user } = useAppSelector((state) => state.user);
+  const { isLoadingAiLayout: isLoading } = useAppSelector((state) => state.loadings);
 
   const layout = list.find((item) => item.id === Number(id));
 
@@ -82,7 +83,8 @@ const LayoutHistoryDetail: React.FC = () => {
       });
       
       try {
-        setIsLoading(true);
+        // setIsLoading(true);
+        dispatch(setIsLoadingAiLayout(true));
         const queryParams = convertHashToQueryParam(window.location.search);
         const response = await axios.post(`${getAPIUrl()}/detailed-layout?${queryParams}`, {
           cardLayoutHistoryId: layout.id,
@@ -96,9 +98,9 @@ const LayoutHistoryDetail: React.FC = () => {
         window.scrollTo(0, 0);
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
-        setIsLoading(false);
+        dispatch(setIsLoadingAiLayout(false));
       } catch (error) {
-        setIsLoading(false);
+        // setIsLoading(false);
         console.error('Ошибка при получении подробного расклада:', error);
       }
     }

@@ -6,6 +6,7 @@ import cardLayoutReducer from './reducers/cardLayoutReducer';
 import cardsReducer from './reducers/cardsReducer';
 import cardLayoutHistoryReducer from './reducers/cardLayoutHistoryReducer';
 import chatHistoryReducer from './reducers/chatHistoryReducer';
+import loadingReducer from './reducers/loadingReducer';
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     cards: cardsReducer,
     layoutHistory: cardLayoutHistoryReducer,
     chat: chatHistoryReducer,
+    loadings: loadingReducer,
   },
 });
 

@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from 'toolkit/hooks';
 import { formatText } from 'utils/formattint';
 
 import styles from './styles.module.scss';
+import { setIsLoadingAiAnswer } from 'toolkit/reducers/loadingReducer';
+import { setBalance } from 'toolkit/reducers/userReducer';
 
 const Chat: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -15,12 +17,12 @@ const Chat: React.FC = () => {
 
   // Локальное состояние для текстового поля
   const [message, setMessage] = useState('');
-  const [isSending, setIsSending] = useState(false);
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   // Получаем данные из сторы
   const { history, isLoading } = useAppSelector((state) => state.chat);
   const { data: user, loading, error } = useAppSelector((state) => state.user);
+  const { isLoadingAiAnswer } = useAppSelector((state) => state.loadings);
 
   // Автоскролл при изменении истории
   useEffect(() => {
@@ -43,15 +45,16 @@ const Chat: React.FC = () => {
   const handleSendMessage = async () => {
     if (!message.trim()) return;
 
-    setIsSending(true);
+    dispatch(setIsLoadingAiAnswer(true));
 
     try {
       await dispatch(sendQuestionToAI(message));
+      dispatch(setBalance(user.balance - 25));
       setMessage(''); // Очистить поле ввода после успешного отправления
     } catch (error) {
       console.error('Error sending question:', error);
     } finally {
-      setIsSending(false);
+      dispatch(setIsLoadingAiAnswer(false));
     }
   };
 
@@ -89,12 +92,12 @@ const Chat: React.FC = () => {
           placeholder="Введите ваш вопрос"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          disabled={isSending}
+          disabled={isLoadingAiAnswer}
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-        <button onClick={handleSendMessage} disabled={isSending || isLoading || user.balance < 25}>
-          {isSending ? (
+        <button onClick={handleSendMessage} disabled={isLoading || user.balance < 25 || isLoadingAiAnswer}>
+          {isLoadingAiAnswer ? (
             <BeatLoader
               loading={true}
               size={11}

@@ -12,13 +12,14 @@ import TarotDetail from 'components/TarotDetail';
 import LayoutHistoryDetail from 'components/LayoutHistoryDetail';
 import LayoutHistoryList from 'components/LayoutHistoryList';
 import Chat from 'components/Chat';
+import Friends from 'components/Friends';
+import CardOfDay from 'components/CardOfDay';
 import { useAppDispatch } from 'toolkit/hooks';
 import { convertHashToQueryParam } from 'utils/urlUtils';
 import { useNavigateWithHash } from 'utils/useNavigateWithHash';
 import { fetchUserData } from 'toolkit/actions/userActions';
 import { fetchCards } from 'toolkit/actions/cardActions';
 import { fetchCardLayouts } from 'toolkit/actions/cardLayoutActions';
-import Friends from 'components/Friends';
 
 import styles from './styles.module.scss';
 
@@ -124,6 +125,7 @@ const App = () => {
         <Route path="/payments" element={<Payments />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/friends" element={<Friends />} />
+        <Route path="/card-of-the-day" element={<CardOfDay />} />
       </Routes>
       <Modal>
         <BonusBalance />

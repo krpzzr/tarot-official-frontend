@@ -24,12 +24,13 @@ const MainPage: React.FC = () => {
     <div className={styles.wrapper}>
       <div>
         <div className={styles.topMenu}>
-          <div onClick={() => handleRedirect('/card-of-the-day')}>
-            Карта дня
-          </div>
           <PeopleIcon onClick={() => handleRedirect('/friends')} />
         </div>
         <ul className={styles.list}>
+          <li onClick={() => handleRedirect('/card-of-the-day')}>
+            <img src="./images/moon.png" alt="" />
+            <span>Карта дня</span>
+          </li>
           <li onClick={() => handleRedirect('/magic-ball')}>
             <img src="./images/ball.png" alt="" />
             <span>Предсказания Да/Нет</span>
