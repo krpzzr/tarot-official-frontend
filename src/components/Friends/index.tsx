@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-
 import { useAppSelector } from 'toolkit/hooks';
 
 import styles from './styles.module.scss';
@@ -17,7 +15,7 @@ const Friends: React.FC = () => {
     if (window.Telegram?.WebApp?.HapticFeedback) {
       window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
     }
-    window.open(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=\n\n🚀 Join me in exploring the crypto universe and start earning coins today! Follow the link to get a welcome bonus of 10,000 💸 and kickstart your journey 🚀`, '_blank');
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=\n\nКогда перед тобой сложный выбор, карты могут стать проводником к верному решению.\n\n Присоединяйся и открой для себя мир древней мудрости и ценных таро-консультаций!`, '_blank');
   };
 
   const handleCopy = async () => {
