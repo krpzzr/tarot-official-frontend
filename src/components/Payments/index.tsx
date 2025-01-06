@@ -8,11 +8,6 @@ import styles from './styles.module.scss';
 
 const balancePayment = [
   {
-    amount: 100,
-    price: 1,
-    text: '9900%',
-  },
-  {
     amount: 50,
     price: 50,
     text: '',

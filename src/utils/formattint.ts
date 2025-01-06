@@ -4,6 +4,10 @@ export const formatText = (text: string) => {
   // Заменяем **текст** на <strong>текст</strong> для жирного текста
   formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
+  
+  // Заменяем #### {текст} на <h4>{текст}</h4> для заголовков 4 уровня
+  formattedText = formattedText.replace(/#### (.*?)(\n|$)/g, '<h4>$1</h4>$2');
+
   // Заменяем ### {текст} на <h3>{текст}</h3> для заголовков 3 уровня
   formattedText = formattedText.replace(/### (.*?)(\n|$)/g, '<h3>$1</h3>$2');
 

@@ -50,10 +50,10 @@ const BonusBalance: React.FC = () => {
         <h1>Ежедневный бонус</h1>
         <ul className={styles.list}>
           {user && bonuses.map(bonus => (
-            <li key={bonus.reward} className={user.bonusBalance >= bonus.reward ? styles.active : ''}>
+            <li key={bonus.reward} className={(user.doubleDayReward ? user.bonusBalance >= bonus.reward * 2 : user.bonusBalance >= bonus.reward) ? styles.active : ''}>
               <div>{bonus.title}</div>
               <div className={styles.reward}>
-                <div>{bonus.reward}</div>
+                <div>{user.doubleDayReward ? bonus.reward * 2 : bonus.reward}</div>
                 <img src={`${window.location.origin}/images/balance_icon.png`} alt="" />
               </div>
             </li>
